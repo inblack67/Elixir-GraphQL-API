@@ -13,6 +13,7 @@ defmodule Gql.Schema do
 
     @desc "Get all Users"
     field :users, list_of(:user_type) do
+      # second arg is role
       middleware(Authorize, "user")
       resolve(&Resolvers.UsersResolver.users/3)
     end
@@ -29,6 +30,19 @@ defmodule Gql.Schema do
     field :login_user, type: :login_user_type do
       arg(:input, non_null(:login_user_input_type))
       resolve(&Resolvers.UsersResolver.login_user/3)
+    end
+
+    @desc "Get all Posts"
+    field :users, list_of(:post_type) do
+      middleware(Authorize, "user")
+      resolve(&Resolvers.PostResolver.posts/3)
+    end
+
+    @desc "Create Post"
+    field :create_post, type: :post_type do
+      middleware(Authorize, "user")
+      arg(:input, non_null(:post_input_type))
+      resolve(&Resolvers.PostResolver.create_post/3)
     end
   end
 end

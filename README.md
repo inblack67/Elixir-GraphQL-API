@@ -1,6 +1,8 @@
 ### GraphQL API
 
 - Typical GraphQL API with **Elixir** and **Phoenix**
+  - Authentication
+  - CRUD
 
 ### Notes
 

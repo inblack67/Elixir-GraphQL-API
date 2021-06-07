@@ -46,7 +46,8 @@ defmodule Gql.MixProject do
       {:argon2_elixir, "~> 2.4.0"},
       {:absinthe, "~> 1.6.4"},
       {:absinthe_plug, "~> 1.5.8"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:dataloader, "~> 1.0.0"}
     ]
   end
 
