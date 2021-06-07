@@ -4,7 +4,7 @@ use Mix.Config
 config :gql, Gql.Repo,
   username: "postgres",
   password: "postgres",
-  database: "gql_dev",
+  database: "elixir_graphql",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
