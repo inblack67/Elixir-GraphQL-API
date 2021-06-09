@@ -8,8 +8,7 @@ defmodule Gql.Auth.User do
     field :last_name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-
-    has_many :posts, Gql.Blog.Post, foreign_key: :user_id
+    has_many :posts, Gql.Blog.Post
 
     timestamps()
   end

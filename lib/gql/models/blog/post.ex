@@ -8,8 +8,7 @@ defmodule Gql.Blog.Post do
     field :title, :string
     field :content, :string
     field :published, :boolean, default: false
-    # field :user_id, :id
-    belongs_to(:user, User)
+    belongs_to :user, User
 
     timestamps()
   end

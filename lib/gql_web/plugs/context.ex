@@ -8,10 +8,6 @@ defmodule Gql.Plugs.Context do
     context = populate_current_user(ctx)
     new_ctx = Absinthe.Plug.put_options(ctx, context: context)
     new_ctx
-    # ctx_with_dataloder = populate_dataloder(new_ctx)
-    # IO.puts("creating ctx => ")
-    # IO.inspect(ctx_with_dataloder)
-    # ctx_with_dataloder
   end
 
   defp populate_current_user(ctx) do
@@ -23,12 +19,4 @@ defmodule Gql.Plugs.Context do
       _ -> %{}
     end
   end
-
-  # defp populate_dataloder(ctx) do
-  #   source = Dataloader.Ecto.new(Gql.Repo)
-
-  #   # setup the loader
-  #   loader = Dataloader.new() |> Dataloader.add_source(:db, source)
-  #   Map.put(ctx, :loader, loader)
-  # end
 end

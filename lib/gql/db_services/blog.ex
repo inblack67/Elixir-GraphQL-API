@@ -108,7 +108,9 @@ defmodule Gql.Blog do
     Dataloader.Ecto.new(Gql.Blog, query: &query/2)
   end
 
-  def query(Post, _), do: list_posts()
+  def query(Post, _) do
+    Repo.all(from p in Post, preload: [:users])
+  end
 
   def query(queryable, _params) do
     queryable
