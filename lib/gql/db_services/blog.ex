@@ -7,6 +7,7 @@ defmodule Gql.Blog do
   alias Gql.Repo
 
   alias Gql.Blog.Post
+  alias Gql.Auth.User
 
   @doc """
   Returns the list of posts.
@@ -108,8 +109,9 @@ defmodule Gql.Blog do
     Dataloader.Ecto.new(Gql.Blog, query: &query/2)
   end
 
-  def query(Post, _) do
-    Repo.all(from p in Post, preload: [:users])
+  def query(User, _) do
+    from(User, preload: [:users])
+    |> Repo.all()
   end
 
   def query(queryable, _params) do

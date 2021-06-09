@@ -7,6 +7,7 @@ defmodule Gql.Auth do
   alias Gql.Repo
 
   alias Gql.Auth.User
+  alias Gql.Blog.Post
 
   @doc """
   Returns the list of users.
@@ -100,5 +101,18 @@ defmodule Gql.Auth do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  def data() do
+    Dataloader.Ecto.new(Gql.Auth, query: &query/2)
+  end
+
+  def query(Post, _) do
+    from(Post, preload: [:users])
+    |> Repo.all()
+  end
+
+  def query(queryable, _params) do
+    queryable
   end
 end
