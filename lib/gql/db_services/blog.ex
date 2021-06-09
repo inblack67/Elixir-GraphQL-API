@@ -17,6 +17,7 @@ defmodule Gql.Blog do
       [%Post{}, ...]
 
   """
+
   def list_posts do
     Repo.all(Post)
   end
@@ -100,5 +101,16 @@ defmodule Gql.Blog do
   """
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
+  end
+
+  # dataloader source
+  def data() do
+    Dataloader.Ecto.new(Gql.Blog, query: &query/2)
+  end
+
+  def query(Post, _), do: list_posts()
+
+  def query(queryable, _params) do
+    queryable
   end
 end

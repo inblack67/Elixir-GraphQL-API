@@ -9,6 +9,8 @@ defmodule Gql.Auth.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    has_many :posts, Gql.Blog.Post, foreign_key: :user_id
+
     timestamps()
   end
 
@@ -17,10 +19,10 @@ defmodule Gql.Auth.User do
     user
     |> cast(attrs, [:first_name, :last_name, :email, :password])
     |> validate_required([:first_name, :last_name, :email, :password])
-    |> unique_constraint(:email)
     |> validate_format(:email, ~r/@/)
     |> update_change(:email, &String.downcase(&1))
     |> validate_length(:password, min: 8, max: 24)
+    |> unique_constraint(:email)
     |> hash_password
   end
 

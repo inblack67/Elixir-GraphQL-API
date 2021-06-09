@@ -1,9 +1,23 @@
 defmodule Gql.Schema do
   use Absinthe.Schema
+
   alias GqlWeb.Resolvers
   alias GqlWeb.Schema.Middlewares.Authorize
+  alias Gql.Blog
 
   import_types(GqlWeb.Schema.Types)
+
+  def context(ctx) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Blog, Blog.data())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
+  end
 
   query do
     @desc "Greet"
@@ -30,12 +44,6 @@ defmodule Gql.Schema do
     field :login_user, type: :login_user_type do
       arg(:input, non_null(:login_user_input_type))
       resolve(&Resolvers.UsersResolver.login_user/3)
-    end
-
-    @desc "Get all Posts"
-    field :users, list_of(:post_type) do
-      middleware(Authorize, "user")
-      resolve(&Resolvers.PostResolver.posts/3)
     end
 
     @desc "Create Post"

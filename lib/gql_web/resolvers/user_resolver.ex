@@ -18,4 +18,5 @@ defmodule GqlWeb.Resolvers.UsersResolver do
       {:ok, %{token: jwt_token, user: user}}
     end
   end
+
 end

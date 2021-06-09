@@ -1,14 +1,15 @@
 defmodule Gql.Blog.Post do
   use Ecto.Schema
+
   import Ecto.Changeset
-  # alias Gql.Auth.User
+  alias Gql.Auth.User
 
   schema "posts" do
     field :title, :string
     field :content, :string
     field :published, :boolean, default: false
-    field :user_id, :id
-    # belongs_to(:user, User)
+    # field :user_id, :id
+    belongs_to(:user, User)
 
     timestamps()
   end
