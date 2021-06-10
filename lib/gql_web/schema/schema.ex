@@ -3,16 +3,11 @@ defmodule Gql.Schema do
 
   alias GqlWeb.Resolvers
   alias GqlWeb.Schema.Middlewares.Authorize
-  alias Gql.Blog
 
   import_types(GqlWeb.Schema.Types)
 
   def context(ctx) do
-    loader =
-      Dataloader.new()
-      |> Dataloader.add_source(Blog, Blog.data())
-
-    Map.put(ctx, :loader, loader)
+    ctx
   end
 
   def plugins do
@@ -30,6 +25,13 @@ defmodule Gql.Schema do
       # second arg is role
       middleware(Authorize, "user")
       resolve(&Resolvers.UsersResolver.users/3)
+    end
+
+    @desc "Get all Posts"
+    field :posts, list_of(:post_type) do
+      # second arg is role
+      middleware(Authorize, "user")
+      resolve(&Resolvers.PostResolver.posts/3)
     end
   end
 

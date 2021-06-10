@@ -1,8 +1,5 @@
 defmodule GqlWeb.Schema.Types.UserType do
   use Absinthe.Schema.Notation
-  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
-
-  alias Gql.Blog
 
   object :user_type do
     field(:id, :id)
@@ -10,11 +7,7 @@ defmodule GqlWeb.Schema.Types.UserType do
     field(:last_name, :string)
     field(:email, :string)
     field(:password, :string)
-
-    field :posts, list_of(:post_type) do
-      resolve(dataloader(Blog))
-      description("Get my Posts")
-    end
+    field(:posts, list_of(:post_type))
   end
 
   input_object :user_input_type do
